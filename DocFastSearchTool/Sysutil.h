@@ -2,7 +2,7 @@
 #pragma once
 #include"Common.h"
 //系统部分
-void DirectionList(const string& path, vector<string>& subfile, vector<string>& subdir);
+void DirectionList(const string& path, vector<string>& subfile, vector<string>& subdir);//遍历路径
 /////////////////////////////////////////////////////////////////////////////////////
 //日志
 #ifndef __TRACE__

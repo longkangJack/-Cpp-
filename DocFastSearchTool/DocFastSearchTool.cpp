@@ -2,7 +2,7 @@
 #include"Sysutil.h"
 #include"sqlite3.h"
 #include"DataManager.h"
-
+#include"ScanManager.h"
 void Test_DirectionList()
 {
 	const string& path = "C:\\Users\\longkangJack\\Desktop\\c++ÏîÄ¿1\\DocFastSearchTool";
@@ -81,6 +81,33 @@ void Test_Log()
 		TRACE_LOG("Open File Success.");
 	fclose(fp);
 }
+void Test_Map()
+{
+	//Ó³Éä
+	pair<int, string> p1 = { 1, "abc" };
+	pair<int, string> p2 = { 5, "xyz" };
+    pair<int, string> p3 = { 3, "lmn" };
+	pair<int, string> p4 = { 2, "opq" };
+	pair<int, string> p5 = { 9, "hjk" };
+	pair<int, string> p6 = { 7, "rty" };
+	//cout<<p1.first<<" : "<<p1.second<<endl;
+	map<int, string> mp;
+	mp.insert(p1);
+	mp.insert(p2);
+	mp.insert(p3);
+	mp.insert(p4);
+	mp.insert(p5);
+	mp.insert(p6);
+  for (const auto& e : mp)
+		cout << e.first << " : " << e.second << endl;
+}
+void Test_Scan()
+{
+	const string& path = "C:\\Users\\longkangJack\\Desktop\\pRO";
+	ScanManager sm;
+	sm.ScanDirectory(path);
+
+}
 /*static int callback(void* data, int argc, char** argv, char** azColName)
 {
 	int i;
@@ -128,6 +155,8 @@ int main(int argc, char* argv[])
 	//Test_DirectionList();
 	//Test_Sqlite();
 	//Test_SqliteManager();
-	Test_Log();
+	//Test_Log();
+	//Test_Map();
+	Test_Scan();
 	return 0;
 }

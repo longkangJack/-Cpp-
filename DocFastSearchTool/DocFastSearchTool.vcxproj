@@ -140,12 +140,14 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="ScanManager.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="Sysutil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DocFastSearchTool.cpp" />
+    <ClCompile Include="SacnManager.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="Susutil.cpp" />
   </ItemGroup>
