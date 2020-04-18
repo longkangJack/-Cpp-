@@ -3,6 +3,7 @@
 #include"sqlite3.h"
 #include"DataManager.h"
 #include"ScanManager.h"
+#include"Sysframe.h"
 void Test_DirectionList()
 {
 	const string& path = "C:\\Users\\longkangJack\\Desktop\\c++项目1\\DocFastSearchTool";
@@ -101,13 +102,12 @@ void Test_Map()
   for (const auto& e : mp)
 		cout << e.first << " : " << e.second << endl;
 }
-void Test_Scan()
-{
-	const string& path = "C:\\Users\\longkangJack\\Desktop\\pRO";
-	ScanManager sm;
-	sm.ScanDirectory(path);
-
-}
+//void Test_Scan()
+//{
+//	const string& path = "C:\\Users\\longkangJack\\Desktop\\pRO";
+//	ScanManager sm;
+//	sm.ScanDirectory(path);
+//}
 /*static int callback(void* data, int argc, char** argv, char** azColName)
 {
 	int i;
@@ -150,6 +150,40 @@ void Test_Sqlite()
 	}
 	sqlite3_close(db);
 }*/
+void Test_Search()
+{
+	const string& path ="C:\\Users\\longkangJack\\Desktop\\pRO";
+	//创建扫描实例
+	ScanManager::CreateInstance(path).ScanDirectory(path);
+	//sm.ScanDirectory(path);
+	//创建搜索实例
+	DataManager& dm = DataManager::GetInstance();
+	string key;
+	vector<pair<string, string>> doc_path;
+	while (1)
+	{
+		cout << "请输入要搜索的关键字:>";
+		cin >> key;
+		dm.Search(key, doc_path);
+		//显示结果
+		printf("%-15s%-50s\n", "名称", "路径");
+		for (const auto& e : doc_path)
+		printf("%-15s%-50s\n", e.first.c_str(), e.second.c_str());
+	}
+}
+void Test_ChineseConvert()
+{
+	string str = "熊立伟";
+	string pinyin = ChineseConvertPinYinAllSpell(str);
+	cout << "pinyin = " << pinyin << endl;
+	string initials = ChineseConvertPinYinInitials(str);
+	cout << "initials = " << initials << endl;
+}
+void Test_Frame()
+{
+	char const*  title = "文件快速搜索工具";
+	DrawFrame(title);
+}
 int main(int argc, char* argv[])
 {
 	//Test_DirectionList();
@@ -157,6 +191,9 @@ int main(int argc, char* argv[])
 	//Test_SqliteManager();
 	//Test_Log();
 	//Test_Map();
-	Test_Scan();
+	//Test_Scan();
+	//Test_Search();
+	//Test_ChineseConvert();
+	Test_Frame();
 	return 0;
 }

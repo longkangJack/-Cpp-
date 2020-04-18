@@ -30,6 +30,9 @@
     <ClInclude Include="ScanManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Sysframe.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DocFastSearchTool.cpp">
@@ -45,6 +48,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SacnManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sysframe.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
