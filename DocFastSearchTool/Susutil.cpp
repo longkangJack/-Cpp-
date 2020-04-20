@@ -188,7 +188,6 @@ std::string ChineseConvertPinYinAllSpell(const std::string & dest_chinese)
 		}
 
 	} // for end
-
 	return pinyin;
 }
 // ºº×Ö×ªÆ´ÒôÊ××ÖÄ¸

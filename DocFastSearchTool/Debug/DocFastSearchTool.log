@@ -1,6 +1,3 @@
-﻿  DocFastSearchTool.cpp
-  Sysframe.cpp
-C:\Users\longkangJack\Desktop\c++项目1\DocFastSearchTool\Sysframe.cpp(7,16): warning C4838: 从“int”转换到“SHORT”需要收缩转换
-C:\Users\longkangJack\Desktop\c++项目1\DocFastSearchTool\Sysframe.cpp(7,19): warning C4838: 从“int”转换到“SHORT”需要收缩转换
-  正在生成代码...
+﻿cl : 命令行 warning D9025: 正在重写“/sdl”(用“/GS-”)
+  DataManager.cpp
   DocFastSearchTool.vcxproj -> C:\Users\longkangJack\Desktop\c++项目1\DocFastSearchTool\Debug\DocFastSearchTool.exe

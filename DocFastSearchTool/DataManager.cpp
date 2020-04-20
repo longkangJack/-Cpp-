@@ -98,14 +98,19 @@ DataManager::~DataManager()
 void DataManager::InitSqlite()
 {
 	char sql[SQL_BUFFER_SIZE] = { 0 };
-	sprintf(sql, "create table if not exists %s(id integer primary key autoincrement, doc_name text, doc_path text)", DOC_TABLE);
+	sprintf(sql,
+		"create table if not exists %s(id integer primary key autoincrement, doc_name text, doc_path text, doc_pinyin text, doc_initials text)",
+		DOC_TABLE);
 	m_dbmgr.ExecuteSql(sql);
 }
 void DataManager::InsertDoc(const string& path, const string& doc)
 {
 	char sql[SQL_BUFFER_SIZE] = { 0 };
-	sprintf(sql, "insert into %s values(null, '%s', '%s')", DOC_TABLE, doc.c_str(), path.c_str());
-	//insert into %s values(null, stl.pdf, c:\\)
+	string pinyin = ChineseConvertPinYinAllSpell(doc);
+	string initials = ChineseConvertPinYinInitials(doc);
+	sprintf(sql,
+		"insert into %s values(null, '%s', '%s', '%s', '%s')",
+		DOC_TABLE, doc.c_str(), path.c_str(), pinyin.c_str(), initials.c_str());
 	m_dbmgr.ExecuteSql(sql);
 }
 void DataManager::GetDocs(const string& path, multiset<string>& docs)
@@ -114,10 +119,12 @@ void DataManager::GetDocs(const string& path, multiset<string>& docs)
 	sprintf(sql, "select doc_name from %s where doc_path='%s'", DOC_TABLE, path.c_str());
 	int row = 0, col = 0;
 	char** ppRet = 0;
-	m_dbmgr.GetResultTable(sql, row, col, ppRet);
+	//m_dbmgr.GetResultTable(sql, row, col, ppRet);
+	AutoGetResultTable at(&m_dbmgr, sql, row, col, ppRet);
 	for (int i = 1; i <= row; ++i)
-		docs.insert(ppRet[i]);
-	sqlite3_free_table(ppRet);
+	docs.insert(ppRet[i]);
+	//释放结果表
+	//sqlite3_free_table(ppRet);
 }
 void DataManager::DeleteDoc(const string& path, const string& doc)
 {
@@ -136,14 +143,16 @@ void DataManager::DeleteDoc(const string& path, const string& doc)
 void DataManager::Search(const string& key, vector<pair<string, string>>& doc_path)
 {
 	char sql[SQL_BUFFER_SIZE] = { 0 };
-	sprintf(sql, "select doc_name, doc_path from %s where doc_name like '%%%s%%'", DOC_TABLE, key.c_str());
+	//sprintf(sql, "select doc_name, doc_path from %s where doc_name like '%%%s%%'", DOC_TABLE, key.c_str());
+	string pinyin = ChineseConvertPinYinAllSpell(key);
+	string initials = ChineseConvertPinYinInitials(key);
+	sprintf(sql,
+		"select doc_name, doc_path from %s where doc_pinyin like '%%%s%%' or doc_initials like '%%%s%%'",
+		DOC_TABLE, pinyin.c_str(), initials.c_str());
 	int row = 0, col = 0;
 	char** ppRet = nullptr;
-	//m_dbmgr.GetResultTable(sql, row, col, ppRet);
 	AutoGetResultTable at(&m_dbmgr, sql, row, col, ppRet);
 	doc_path.clear();
-	//   doc_name       doc_path
-	//   1.txt         c:\ 
 	for (int i = 1; i <= row; ++i)
 		doc_path.push_back(make_pair(ppRet[i * col], ppRet[i * col + 1]));
 	//释放结果表
