@@ -25,25 +25,25 @@ int main(int argc, char* argv[])
 		dm.Search(key, doc_path);
 		int init_row = 5; //由界面决定
 		int count = 0;
-		/*string prefix, highlight, suffix;*/
+		string prefix, highlight, suffix;
 		for (const auto& e : doc_path)
 		{
-			//string doc_name = e.first;
-			//string doc_path = e.second;
-			//DataManager::SplitHighlight(doc_name, key, prefix, highlight, suffix);
-			//SetCurPos(2, init_row + count++);
-			////printf("%-31s", prefix.c_str());
-			//cout << prefix;
-			//ColourPrintf(highlight.c_str());
-			//cout << suffix;
-			SetCurPos(2,init_row+count++);
-			//printf("%-50s", doc_path.c_str());
-		printf("%-31s%-50s\n",e.first.c_str(), e.second.c_str());
+			string doc_name = e.first;
+			string doc_path = e.second;
+			DataManager::SplitHighlight(doc_name, key, prefix, highlight, suffix);
+			SetCurPos(2, init_row + count++);
+			//printf("%-31s", prefix.c_str());
+			cout << prefix;
+			ColourPrintf(highlight.c_str());
+			cout << suffix;
+			SetCurPos(33,init_row+count-1);
+			printf("%-50s", doc_path.c_str());
+		//printf("%-31s%-50s\n",e.first.c_str(), e.second.c_str());
 		}
 		SystemEnd();
 		system("pause");
 	}
-	//SystemEnd();
+	SystemEnd();
 	return 0;
 }
 /*void Test_DirectionList()
